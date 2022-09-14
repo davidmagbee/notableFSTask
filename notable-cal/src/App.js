@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect} from 'react';
+import axios from 'axios';
+import Docs from './Docs';
+
 
 function App() {
+  const [docs, setDocs] = useState([]);
+  const [error, setError] = useState(null);
+
+useEffect(() => {
+  axios('http://localhost:3001/docs')
+  .then((res) => {
+    setDocs(res.data);
+    setError(null)
+  })
+  .catch(setError);
+}, []);
+
+if (error) return <p>Oops! An error occurred. ☹️</p>
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {docs.map(({ id, physician, patients, email, listName}) => (
+        <Docs
+          key={id}
+          physician={physician}
+          // patients={patients}
+          email={email}
+          listName={listName}
+        />
+      ))}
     </div>
   );
 }
