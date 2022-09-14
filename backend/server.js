@@ -9,6 +9,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use('/', controller)
+app.use('/docs', controller)
+app.use('/docs/:id', controller)
 
 app.listen(3001, () => console.log('👂🏼 listening... show me your data'));

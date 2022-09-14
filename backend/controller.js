@@ -10,12 +10,16 @@ router
 
 router
     .get('/docs', (req, res) => {
-        let docs = data.map(doc => doc.physician)
+        const docs = data.map(doc => doc.physician)
         res.send(docs)
     })
 
-
-
-
+router
+    .get('/:id', (req, res) => {
+        const id = parseInt(req.params.id)
+        const appts = data.find(appt => appt.id === id)
+        console.log(appts);
+        res.send(appts)
+    })
 
 module.exports = router;
