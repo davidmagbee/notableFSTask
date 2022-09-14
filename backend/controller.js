@@ -8,6 +8,14 @@ router
         res.json(data)
     });
 
-    
+router
+    .get('/docs', (req, res) => {
+        let docs = data.map(doc => doc.physician)
+        res.send(docs)
+    })
+
+
+
+
 
 module.exports = router;
